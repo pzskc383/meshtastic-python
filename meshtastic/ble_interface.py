@@ -141,6 +141,16 @@ class BLEInterface(MeshInterface):
             )
             return list(map(lambda d: d[0], devices))
 
+    @staticmethod
+    def get_active_devices(bleak_client):
+        if not isinstance(bleak_client, BleakClientBlueZDBus):
+            return []
+
+        logger.info("Checking for online bluez devices")
+        from bleak.backends.bluezdbus.manager import get_global_bluez_manager
+        manager = get_global_bluez_manager()
+
+
     def find_device(self, address: Optional[str]) -> BLEDevice:
         """Find a device by address."""
 
@@ -177,6 +187,12 @@ class BLEInterface(MeshInterface):
         # Bleak docs recommend always doing a scan before connecting (even if we know addr)
         device = self.find_device(address)
         client = BLEClient(device.address, disconnected_callback=lambda _: self.close())
+
+        logger.info(f"Client: {client}")
+
+        if client.is_connected():
+            client.disconnect()
+
         client.connect()
         client.discover()
         return client
