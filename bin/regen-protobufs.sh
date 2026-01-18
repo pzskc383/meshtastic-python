@@ -1,19 +1,29 @@
 #!/bin/bash
 
-set -e
+set -e -u
+
+if ! git submodule status protobuf >/dev/null 2>&1; then
+	git submodule update --init --recursive --checkout
+fi
 
 #Uncomment to run hack
 #gsed -i 's/import "\//import ".\//g' ./protobufs/meshtastic/*
 #gsed -i 's/package meshtastic;//g' ./protobufs/meshtastic/*
 
-POETRYDIR=$(poetry env info --path)
-
-if [[ -z "${POETRYDIR}" ]]; then
-	poetry install
+# install poetry if not
+if ! uv tool list |grep -qF poetry; then
+	uv tool install 'poetry=2.1.3'
 fi
 
-# protoc looks for mypy plugin in the python path
-source $(poetry env info --path)/bin/activate
+# alias poetry to uv
+poetry() {
+	uvx poetry "$@"
+}
+
+# to be honest, we care about only single dependency here:
+if ! pip show nanopb >/dev/null 2>&1; then
+	poetry install
+fi
 
 # Put our temp files in the poetry build directory
 TMPDIR=./build/meshtastic/protofixup
@@ -45,8 +55,8 @@ $SEDCMD 's/^import "meshtastic\//import "meshtastic\/protobuf\//' "${INDIR}/"*.p
 
 $SEDCMD 's/^import "nanopb.proto"/import "meshtastic\/protobuf\/nanopb.proto"/' "${INDIR}/"*.proto
 
-# Generate the python files
-./nanopb-0.4.8/generator-bin/protoc -I=$TMPDIR/in --python_out "${OUTDIR}" "--mypy_out=${PYIDIR}" $INDIR/*.proto
+nanopb_path="$(pip show nanopb |awk -F:\  '/Location:/{print $2}')"/nanopb
+${nanopb_path}/generator/protoc -I=$TMPDIR/in --python_out "${OUTDIR}" "--mypy_out=${PYIDIR}" $INDIR/*.proto
 
 # Change "from meshtastic.protobuf import" to "from . import"
 $SEDCMD 's/^from meshtastic.protobuf import/from . import/' "${OUTDIR}"/meshtastic/protobuf/*pb2*.py[i]
