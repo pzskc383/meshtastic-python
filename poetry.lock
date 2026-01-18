@@ -3025,6 +3025,24 @@ protobuf = ">=4.25.3"
 types-protobuf = ">=4.24"
 
 [[package]]
+name = "nanopb"
+version = "0.4.9"
+description = "Nanopb is a small code-size Protocol Buffers implementation in ansi C. It is especially suitable for use in microcontrollers, but fits any memory restricted system."
+optional = false
+python-versions = ">=2.7"
+groups = ["dev"]
+files = [
+    {file = "nanopb-0.4.9-py2.py3-none-any.whl", hash = "sha256:76d062a8e6054ee406ee87cc1ed9c359c4f20004f16780dc5b697ed0293fceea"},
+    {file = "nanopb-0.4.9.tar.gz", hash = "sha256:c3024f649d6483801e685c0f359fa311c2831734e0a4591b37b8eda8f9b45cf3"},
+]
+
+[package.dependencies]
+protobuf = ">=3.19"
+
+[package.extras]
+grpcio-tools = ["grpcio-tools (>=1.46.0)"]
+
+[[package]]
 name = "narwhals"
 version = "2.11.0"
 description = "Extremely lightweight compatibility layer between dataframe libraries"
@@ -4309,6 +4327,7 @@ python-versions = ">=3.3, <4"
 groups = ["main"]
 files = [
     {file = "Pypubsub-4.0.3-py3-none-any.whl", hash = "sha256:7f716bae9388afe01ff82b264ba8a96a8ae78b42bb1f114f2716ca8f9e404e2a"},
+    {file = "pypubsub-4.0.3.tar.gz", hash = "sha256:32d662de3ade0fb0880da92df209c62a4803684de5ccb8d19421c92747a258c7"},
 ]
 
 [[package]]
@@ -5941,4 +5960,4 @@ tunnel = ["pytap2"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9,<3.15"
-content-hash = "e87e2eaffca4ad13aa7e1b8622ec4b37b23a4efe1f4febe0ca87b92db5fe6d1e"
+content-hash = "8ab9e074e95554b81e153cbcdb554cddbe280b2d7d3cc5f64253836358e10b34"
