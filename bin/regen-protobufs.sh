@@ -10,21 +10,6 @@ fi
 #gsed -i 's/import "\//import ".\//g' ./protobufs/meshtastic/*
 #gsed -i 's/package meshtastic;//g' ./protobufs/meshtastic/*
 
-# install poetry if not
-if ! uv tool list | grep -qF poetry; then
-	uv tool install 'poetry=2.1.3'
-fi
-
-# alias poetry to uv
-poetry() {
-	uvx poetry "$@"
-}
-
-# to be honest, we care about only single dependency here:
-if ! pip show nanopb >/dev/null 2>&1; then
-	poetry install --all-groups --all-extras
-fi
-
 # Put our temp files in the poetry build directory
 TMPDIR=./build/meshtastic/protofixup
 echo "Fixing up protobuf paths in ${TMPDIR} temp directory"
@@ -53,7 +38,7 @@ ${SEDCMD} 's/^import "meshtastic\//import "meshtastic\/protobuf\//' "${INDIR}/"*
 
 ${SEDCMD} 's/^import "nanopb.proto"/import "meshtastic\/protobuf\/nanopb.proto"/' "${INDIR}/"*.proto
 
-nanopb_path="$(pip show nanopb | awk -F:\  '/Location:/{print $2}')"/nanopb
+nanopb_path="$(uv pip show nanopb | awk -F:\  '/Location:/{print $2}')"/nanopb
 "${nanopb_path}"/generator/protoc -I="${TMPDIR}"/in --python_out "${OUTDIR}" --mypy_out="${PYIDIR}" "${INDIR}"/*.proto
 
 # Change "from meshtastic.protobuf import" to "from . import"
