@@ -4,8 +4,9 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
+from google.protobuf import message as _message
+from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-from google.protobuf.internal import builder as _builder
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -15,22 +16,70 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+meshtastic/protobuf/connection_status.proto\x12\x13meshtastic.protobuf\"\xd5\x02\n\x16\x44\x65viceConnectionStatus\x12<\n\x04wifi\x18\x01 \x01(\x0b\x32).meshtastic.protobuf.WifiConnectionStatusH\x00\x88\x01\x01\x12\x44\n\x08\x65thernet\x18\x02 \x01(\x0b\x32-.meshtastic.protobuf.EthernetConnectionStatusH\x01\x88\x01\x01\x12\x46\n\tbluetooth\x18\x03 \x01(\x0b\x32..meshtastic.protobuf.BluetoothConnectionStatusH\x02\x88\x01\x01\x12@\n\x06serial\x18\x04 \x01(\x0b\x32+.meshtastic.protobuf.SerialConnectionStatusH\x03\x88\x01\x01\x42\x07\n\x05_wifiB\x0b\n\t_ethernetB\x0c\n\n_bluetoothB\t\n\x07_serial\"p\n\x14WifiConnectionStatus\x12<\n\x06status\x18\x01 \x01(\x0b\x32,.meshtastic.protobuf.NetworkConnectionStatus\x12\x0c\n\x04ssid\x18\x02 \x01(\t\x12\x0c\n\x04rssi\x18\x03 \x01(\x05\"X\n\x18\x45thernetConnectionStatus\x12<\n\x06status\x18\x01 \x01(\x0b\x32,.meshtastic.protobuf.NetworkConnectionStatus\"{\n\x17NetworkConnectionStatus\x12\x12\n\nip_address\x18\x01 \x01(\x07\x12\x14\n\x0cis_connected\x18\x02 \x01(\x08\x12\x19\n\x11is_mqtt_connected\x18\x03 \x01(\x08\x12\x1b\n\x13is_syslog_connected\x18\x04 \x01(\x08\"L\n\x19\x42luetoothConnectionStatus\x12\x0b\n\x03pin\x18\x01 \x01(\r\x12\x0c\n\x04rssi\x18\x02 \x01(\x05\x12\x14\n\x0cis_connected\x18\x03 \x01(\x08\"<\n\x16SerialConnectionStatus\x12\x0c\n\x04\x62\x61ud\x18\x01 \x01(\r\x12\x14\n\x0cis_connected\x18\x02 \x01(\x08\x42\x66\n\x14org.meshtastic.protoB\x10\x43onnStatusProtosZ\"github.com/meshtastic/go/generated\xaa\x02\x14Meshtastic.Protobufs\xba\x02\x00\x62\x06proto3')
 
-_globals = globals()
-_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
-_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'meshtastic.protobuf.connection_status_pb2', _globals)
+
+
+_DEVICECONNECTIONSTATUS = DESCRIPTOR.message_types_by_name['DeviceConnectionStatus']
+_WIFICONNECTIONSTATUS = DESCRIPTOR.message_types_by_name['WifiConnectionStatus']
+_ETHERNETCONNECTIONSTATUS = DESCRIPTOR.message_types_by_name['EthernetConnectionStatus']
+_NETWORKCONNECTIONSTATUS = DESCRIPTOR.message_types_by_name['NetworkConnectionStatus']
+_BLUETOOTHCONNECTIONSTATUS = DESCRIPTOR.message_types_by_name['BluetoothConnectionStatus']
+_SERIALCONNECTIONSTATUS = DESCRIPTOR.message_types_by_name['SerialConnectionStatus']
+DeviceConnectionStatus = _reflection.GeneratedProtocolMessageType('DeviceConnectionStatus', (_message.Message,), {
+  'DESCRIPTOR' : _DEVICECONNECTIONSTATUS,
+  '__module__' : 'meshtastic.protobuf.connection_status_pb2'
+  # @@protoc_insertion_point(class_scope:meshtastic.protobuf.DeviceConnectionStatus)
+  })
+_sym_db.RegisterMessage(DeviceConnectionStatus)
+
+WifiConnectionStatus = _reflection.GeneratedProtocolMessageType('WifiConnectionStatus', (_message.Message,), {
+  'DESCRIPTOR' : _WIFICONNECTIONSTATUS,
+  '__module__' : 'meshtastic.protobuf.connection_status_pb2'
+  # @@protoc_insertion_point(class_scope:meshtastic.protobuf.WifiConnectionStatus)
+  })
+_sym_db.RegisterMessage(WifiConnectionStatus)
+
+EthernetConnectionStatus = _reflection.GeneratedProtocolMessageType('EthernetConnectionStatus', (_message.Message,), {
+  'DESCRIPTOR' : _ETHERNETCONNECTIONSTATUS,
+  '__module__' : 'meshtastic.protobuf.connection_status_pb2'
+  # @@protoc_insertion_point(class_scope:meshtastic.protobuf.EthernetConnectionStatus)
+  })
+_sym_db.RegisterMessage(EthernetConnectionStatus)
+
+NetworkConnectionStatus = _reflection.GeneratedProtocolMessageType('NetworkConnectionStatus', (_message.Message,), {
+  'DESCRIPTOR' : _NETWORKCONNECTIONSTATUS,
+  '__module__' : 'meshtastic.protobuf.connection_status_pb2'
+  # @@protoc_insertion_point(class_scope:meshtastic.protobuf.NetworkConnectionStatus)
+  })
+_sym_db.RegisterMessage(NetworkConnectionStatus)
+
+BluetoothConnectionStatus = _reflection.GeneratedProtocolMessageType('BluetoothConnectionStatus', (_message.Message,), {
+  'DESCRIPTOR' : _BLUETOOTHCONNECTIONSTATUS,
+  '__module__' : 'meshtastic.protobuf.connection_status_pb2'
+  # @@protoc_insertion_point(class_scope:meshtastic.protobuf.BluetoothConnectionStatus)
+  })
+_sym_db.RegisterMessage(BluetoothConnectionStatus)
+
+SerialConnectionStatus = _reflection.GeneratedProtocolMessageType('SerialConnectionStatus', (_message.Message,), {
+  'DESCRIPTOR' : _SERIALCONNECTIONSTATUS,
+  '__module__' : 'meshtastic.protobuf.connection_status_pb2'
+  # @@protoc_insertion_point(class_scope:meshtastic.protobuf.SerialConnectionStatus)
+  })
+_sym_db.RegisterMessage(SerialConnectionStatus)
+
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n\024org.meshtastic.protoB\020ConnStatusProtosZ\"github.com/meshtastic/go/generated\252\002\024Meshtastic.Protobufs\272\002\000'
-  _globals['_DEVICECONNECTIONSTATUS']._serialized_start=69
-  _globals['_DEVICECONNECTIONSTATUS']._serialized_end=410
-  _globals['_WIFICONNECTIONSTATUS']._serialized_start=412
-  _globals['_WIFICONNECTIONSTATUS']._serialized_end=524
-  _globals['_ETHERNETCONNECTIONSTATUS']._serialized_start=526
-  _globals['_ETHERNETCONNECTIONSTATUS']._serialized_end=614
-  _globals['_NETWORKCONNECTIONSTATUS']._serialized_start=616
-  _globals['_NETWORKCONNECTIONSTATUS']._serialized_end=739
-  _globals['_BLUETOOTHCONNECTIONSTATUS']._serialized_start=741
-  _globals['_BLUETOOTHCONNECTIONSTATUS']._serialized_end=817
-  _globals['_SERIALCONNECTIONSTATUS']._serialized_start=819
-  _globals['_SERIALCONNECTIONSTATUS']._serialized_end=879
+  _DEVICECONNECTIONSTATUS._serialized_start=69
+  _DEVICECONNECTIONSTATUS._serialized_end=410
+  _WIFICONNECTIONSTATUS._serialized_start=412
+  _WIFICONNECTIONSTATUS._serialized_end=524
+  _ETHERNETCONNECTIONSTATUS._serialized_start=526
+  _ETHERNETCONNECTIONSTATUS._serialized_end=614
+  _NETWORKCONNECTIONSTATUS._serialized_start=616
+  _NETWORKCONNECTIONSTATUS._serialized_end=739
+  _BLUETOOTHCONNECTIONSTATUS._serialized_start=741
+  _BLUETOOTHCONNECTIONSTATUS._serialized_end=817
+  _SERIALCONNECTIONSTATUS._serialized_start=819
+  _SERIALCONNECTIONSTATUS._serialized_end=879
 # @@protoc_insertion_point(module_scope)
