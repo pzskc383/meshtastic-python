@@ -11,7 +11,7 @@ fi
 #gsed -i 's/package meshtastic;//g' ./protobufs/meshtastic/*
 
 # install poetry if not
-if ! uv tool list |grep -qF poetry; then
+if ! uv tool list | grep -qF poetry; then
 	uv tool install 'poetry=2.1.3'
 fi
 
@@ -22,16 +22,15 @@ poetry() {
 
 # to be honest, we care about only single dependency here:
 if ! pip show nanopb >/dev/null 2>&1; then
-	poetry install
+	poetry install --all-groups --all-extras
 fi
 
 # Put our temp files in the poetry build directory
 TMPDIR=./build/meshtastic/protofixup
 echo "Fixing up protobuf paths in ${TMPDIR} temp directory"
 
-
 # Ensure a clean build
-[ -e "${TMPDIR}" ] && rm -r "${TMPDIR}"
+[[ -e ${TMPDIR} ]] && rm -r "${TMPDIR}"
 
 INDIR=${TMPDIR}/in/meshtastic/protobuf
 OUTDIR=${TMPDIR}/out
@@ -41,25 +40,24 @@ cp ./protobufs/meshtastic/*.proto "${INDIR}"
 cp ./protobufs/nanopb.proto "${INDIR}"
 
 # OS-X sed is apparently a little different and expects an arg for -i
-if [[ $OSTYPE == 'darwin'* ]]; then
+if [[ ${OSTYPE} == 'darwin'* ]]; then
 	SEDCMD="sed -i '' -E"
 else
 	SEDCMD="sed -i -E"
 fi
 
-
 # change the package names to meshtastic.protobuf
-$SEDCMD 's/^package meshtastic;/package meshtastic.protobuf;/' "${INDIR}/"*.proto
+${SEDCMD} 's/^package meshtastic;/package meshtastic.protobuf;/' "${INDIR}/"*.proto
 # fix the imports to match
-$SEDCMD 's/^import "meshtastic\//import "meshtastic\/protobuf\//' "${INDIR}/"*.proto
+${SEDCMD} 's/^import "meshtastic\//import "meshtastic\/protobuf\//' "${INDIR}/"*.proto
 
-$SEDCMD 's/^import "nanopb.proto"/import "meshtastic\/protobuf\/nanopb.proto"/' "${INDIR}/"*.proto
+${SEDCMD} 's/^import "nanopb.proto"/import "meshtastic\/protobuf\/nanopb.proto"/' "${INDIR}/"*.proto
 
-nanopb_path="$(pip show nanopb |awk -F:\  '/Location:/{print $2}')"/nanopb
-${nanopb_path}/generator/protoc -I=$TMPDIR/in --python_out "${OUTDIR}" "--mypy_out=${PYIDIR}" $INDIR/*.proto
+nanopb_path="$(pip show nanopb | awk -F:\  '/Location:/{print $2}')"/nanopb
+"${nanopb_path}"/generator/protoc -I="${TMPDIR}"/in --python_out "${OUTDIR}" --mypy_out="${PYIDIR}" "${INDIR}"/*.proto
 
 # Change "from meshtastic.protobuf import" to "from . import"
-$SEDCMD 's/^from meshtastic.protobuf import/from . import/' "${OUTDIR}"/meshtastic/protobuf/*pb2*.py[i]
+${SEDCMD} 's/^from meshtastic.protobuf import/from . import/' "${OUTDIR}"/meshtastic/protobuf/*pb2*.py[i]
 
 # Create a __init__.py in the out directory
 touch "${OUTDIR}/meshtastic/protobuf/__init__.py"
