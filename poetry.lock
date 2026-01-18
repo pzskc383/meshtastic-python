@@ -3026,14 +3026,14 @@ types-protobuf = ">=4.24"
 
 [[package]]
 name = "nanopb"
-version = "0.4.8"
+version = "0.4.9"
 description = "Nanopb is a small code-size Protocol Buffers implementation in ansi C. It is especially suitable for use in microcontrollers, but fits any memory restricted system."
 optional = false
 python-versions = ">=2.7"
-groups = ["main"]
+groups = ["dev"]
 files = [
-    {file = "nanopb-0.4.8-py2.py3-none-any.whl", hash = "sha256:b06105590f5f585f35781bcfbc7c6b1b30e06d4c32e43e6b8d17704d78931a82"},
-    {file = "nanopb-0.4.8.tar.gz", hash = "sha256:53264a6321a3fe18752b656457dc5c105b06d321b89b3b555c411a346a83b8dd"},
+    {file = "nanopb-0.4.9-py2.py3-none-any.whl", hash = "sha256:76d062a8e6054ee406ee87cc1ed9c359c4f20004f16780dc5b697ed0293fceea"},
+    {file = "nanopb-0.4.9.tar.gz", hash = "sha256:c3024f649d6483801e685c0f359fa311c2831734e0a4591b37b8eda8f9b45cf3"},
 ]
 
 [package.dependencies]
@@ -5960,4 +5960,4 @@ tunnel = ["pytap2"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9,<3.15"
-content-hash = "f7eea99024099e1840ff42556053ebc2407330508483c63610442d528767e551"
+content-hash = "8ab9e074e95554b81e153cbcdb554cddbe280b2d7d3cc5f64253836358e10b34"
